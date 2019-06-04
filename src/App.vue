@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <header-component></header-component>
     <v-btn @click="testApi">Test Api</v-btn>
   </v-app>
 </template>
@@ -7,9 +8,13 @@
 <script>
 import axios from "axios";
 
+import HeaderComponent from "./components/HeaderComponent.vue";
+
 export default {
   name: "App",
-  components: {},
+  components: {
+    HeaderComponent
+  },
   data() {
     return {
       //
