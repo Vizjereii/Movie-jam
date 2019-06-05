@@ -5,6 +5,29 @@ const axios = require("axios");
 const movieDbApiRootUrl = "https://api.themoviedb.org/3";
 const movieDbApiKey = process.env.movieDbApiKey;
 
+function getAllPagesRecursive(url, movies, resolve, reject) {
+  url = url.replace("&page=d+", "");
+
+  axios
+    .get(url)
+    .then(response => {
+      const fetchedMovies = movies.concat(response.data.results);
+      if (response.data.total_pages > response.data.page) {
+        getAllPagesRecursive(
+          url + `&page=${response.data.page + 1}`,
+          fetchedMovies,
+          resolve,
+          reject
+        );
+      } else {
+        resolve(fetchedMovies);
+      }
+    })
+    .catch(err => {
+      reject(err);
+    });
+}
+
 exports.handler = (event, context, callback) => {
   const { httpMethod } = event;
 
@@ -15,19 +38,20 @@ exports.handler = (event, context, callback) => {
   const to = current.toISOString().substr(0, 10);
 
   if (httpMethod === "GET") {
-    axios
-      .get(
+    new Promise((resolve, reject) => {
+      getAllPagesRecursive(
         `${movieDbApiRootUrl}/discover/movie?api_key=${movieDbApiKey}&language=en-US` +
-          `&sort_by=primary_release_date.desc&include_adult=false&page=1` +
-          `&primary_release_date.gte=${from}&primary_release_date.lte=${to}&vote_count.gte=10`,
-        {
-          "content-type": "application/json"
-        }
-      )
+          `&sort_by=primary_release_date.desc&include_adult=false` +
+          `&primary_release_date.gte=${from}&primary_release_date.lte=${to}&vote_count.gte=2`,
+        [],
+        resolve,
+        reject
+      );
+    })
       .then(res => {
         callback(null, {
           statusCode: 200,
-          body: JSON.stringify(res.data)
+          body: JSON.stringify(res)
         });
       })
       .catch(err => {
