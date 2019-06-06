@@ -42,7 +42,7 @@ exports.handler = (event, context, callback) => {
       getAllPagesRecursive(
         `${movieDbApiRootUrl}/discover/movie?api_key=${movieDbApiKey}&language=en-US` +
           `&sort_by=primary_release_date.desc&include_adult=false` +
-          `&primary_release_date.gte=${from}&primary_release_date.lte=${to}&vote_count.gte=2`,
+          `&primary_release_date.gte=${from}&primary_release_date.lte=${to}&vote_count.gte=10`,
         [],
         resolve,
         reject
