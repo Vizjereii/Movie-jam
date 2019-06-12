@@ -36,7 +36,6 @@ export default {
       function scroll(timestamp) {
         const timeElapsed = timestamp - startTime;
         const progress = Math.min(timeElapsed / duration, 1);
-        console.log(event.deltaY * progress);
         vm.$refs.cont.scrollLeft += event.deltaY * progress * 0.1;
 
         if (timeElapsed < duration) {
@@ -76,7 +75,7 @@ export default {
 .scrolling-wrapper {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: hidden;
 }
 </style>
