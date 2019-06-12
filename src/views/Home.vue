@@ -1,8 +1,8 @@
 <template>
   <v-container class="container-width even-height px-0" grid-list-xl text-xs-center>
-    <v-layout row justify-start class="even-height scrolling-wrapper">
-      <v-flex xs4 v-for="item in activeMoviesList" :key="item.id" class="even-height width-pacing card">
-        <v-card class="even-height card">
+    <v-layout row justify-start class="even-height scrolling-wrapper" ref="cont">
+      <v-flex xs4 v-for="item in activeMoviesList" :key="item.id" class="even-height width-pacing">
+        <v-card class="even-height">
           <v-card-title primary-title>
             <h3 class="headline mb-0">{{item.original_title}}</h3>
           </v-card-title>
@@ -27,11 +27,35 @@ export default {
     ...mapState(["activeMoviesList"])
   },
   methods: {
-    ...mapActions(["fetchActiveMoviesList"])
+    ...mapActions(["fetchActiveMoviesList"]),
+    handleScroll(event) {
+      const startTime = window.performance.now();
+      const duration = 300;
+      const vm = this;
+
+      function scroll(timestamp) {
+        const timeElapsed = timestamp - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        console.log(event.deltaY * progress);
+        vm.$refs.cont.scrollLeft += event.deltaY * progress * 0.1;
+
+        if (timeElapsed < duration) {
+          window.requestAnimationFrame(scroll);
+        } else {
+          return;
+        }
+      }
+
+      window.requestAnimationFrame(scroll);
+    }
   },
   components: {},
-  created() {
+  mounted() {
     //this.fetchActiveMoviesList();
+    window.addEventListener("wheel", this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("wheel", this.handleScroll);
   }
 };
 </script>
@@ -46,16 +70,13 @@ export default {
 }
 
 .width-pacing {
-  min-width: 20%;
+  min-width: 23%;
 }
 
 .scrolling-wrapper {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto;
-}
-
-.card {
-  flex: 0 0 auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 </style>
