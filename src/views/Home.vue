@@ -1,12 +1,13 @@
 <template>
   <v-container class="container-width even-height px-0" grid-list-xl text-xs-center>
     <v-layout row justify-start class="even-height scrolling-wrapper" ref="cont">
-      <v-flex xs4 v-for="item in activeMoviesList" :key="item.id" class="even-height width-pacing">
-        <v-card class="even-height">
-          <v-card-title primary-title>
-            <h3 class="headline mb-0">{{item.original_title}}</h3>
-          </v-card-title>
-        </v-card>
+      <v-flex
+        xs4
+        v-for="item in activeMoviesList"
+        :key="item.id"
+        class="even-height width-pacing px-0"
+      >
+        <movie-card-component :cardData="item"></movie-card-component>
       </v-flex>
       <v-btn @click="fetchActiveMoviesList"></v-btn>
     </v-layout>
@@ -15,6 +16,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import MovieCardComponent from "../components/MovieCardComponent.vue";
 
 export default {
   name: "home",
@@ -48,7 +50,9 @@ export default {
       window.requestAnimationFrame(scroll);
     }
   },
-  components: {},
+  components: {
+    MovieCardComponent
+  },
   mounted() {
     //this.fetchActiveMoviesList();
     window.addEventListener("wheel", this.handleScroll);
@@ -62,6 +66,7 @@ export default {
 <style scoped>
 .container-width {
   max-width: 100%;
+  background-color: black;
 }
 
 .even-height {
