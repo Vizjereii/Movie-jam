@@ -9,7 +9,6 @@
       >
         <movie-card-component :cardData="item"></movie-card-component>
       </v-flex>
-      <v-btn @click="fetchActiveMoviesList"></v-btn>
     </v-layout>
   </v-container>
 </template>
@@ -54,7 +53,7 @@ export default {
     MovieCardComponent
   },
   mounted() {
-    //this.fetchActiveMoviesList();
+    this.fetchActiveMoviesList();
     window.addEventListener("wheel", this.handleScroll);
   },
   beforeDestroy() {
@@ -82,5 +81,9 @@ export default {
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
 }
 </style>
