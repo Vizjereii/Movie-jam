@@ -3,11 +3,10 @@
     <v-btn class="my-4" round>
       <v-icon medium>info</v-icon>Movie Details
     </v-btn>
-    <v-layout align-center justify-center row wrap pa-3 mb-2>
+    <h4 class="headline pa-3">Showtimes</h4>
+    <v-layout align-center justify-center row wrap pa-5 mb-2>
       <v-flex v-for="time in getShowtimes" :key="time" xs3>
-        <v-card dark color="#81C784">
-          <v-card-text class="px-0 py-2">{{time}}</v-card-text>
-        </v-card>
+        <v-card-text class="px-0 py-2 time-slot headline font-weight-medium">{{time}}</v-card-text>
       </v-flex>
     </v-layout>
     <v-card-title primary-title>
@@ -57,6 +56,17 @@ export default {
   width: 100%;
   color: #fff;
   top: 0;
+}
+
+.time-slot {
+  color: #fb3635;
+  filter: drop-shadow(3px 4px 3px #000);
+  transition-duration: 300ms;
+}
+.time-slot:hover {
+  cursor: pointer;
+  color: #fff;
+  filter: drop-shadow(-3px -2px 3px rgb(61, 70, 102));
 }
 
 .title-name {

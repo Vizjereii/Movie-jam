@@ -47,8 +47,9 @@ export default {
 
 .even-height:hover .hover-blur {
   filter: blur(20px);
-  opacity: 0.7;
+  opacity: 0.6;
   transform: scale(0.95);
   transition-duration: 300ms;
+  cursor: default;
 }
 </style>
