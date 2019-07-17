@@ -9,6 +9,7 @@
         <v-card-text
           class="px-0 py-2 headline font-weight-medium time-slot"
           :class="{'time-slot-active': isTimeslotValid(time)}"
+          @click="navigateToBooking(time)"
         >{{time}}</v-card-text>
       </v-flex>
     </v-layout>
@@ -49,6 +50,12 @@ export default {
       const slotTime = new Date();
       slotTime.setHours(parsedParam[0], parsedParam[1], 0);
       return slotTime > currentTime;
+    },
+    navigateToBooking(timeslotParam) {
+      this.$router.push({
+        name: "book",
+        query: { id: this.showtimesId, t: timeslotParam }
+      });
     }
   }
 };
