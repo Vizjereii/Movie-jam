@@ -7,14 +7,16 @@
         :key="item.id"
         class="even-height width-pacing px-0"
       >
-        <movie-card-component :cardData="item"></movie-card-component>
+        <transition appear>
+          <movie-card-component :cardData="item"></movie-card-component>
+        </transition>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapState } from "vuex";
 import MovieCardComponent from "../components/MovieCardComponent.vue";
 
 export default {
@@ -28,7 +30,6 @@ export default {
     ...mapState(["activeMoviesList"])
   },
   methods: {
-    ...mapActions(["fetchActiveMoviesList"]),
     handleScroll(event) {
       const startTime = window.performance.now();
       const duration = 300;
@@ -53,7 +54,6 @@ export default {
     MovieCardComponent
   },
   mounted() {
-    this.fetchActiveMoviesList();
     window.addEventListener("wheel", this.handleScroll);
   },
   beforeDestroy() {
@@ -86,5 +86,15 @@ export default {
 
 ::-webkit-scrollbar {
   width: 0px;
+}
+
+.v-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.v-enter-to {
+  opacity: 1;
+  transition: all 0.8s ease;
 }
 </style>

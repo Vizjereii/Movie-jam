@@ -9,6 +9,7 @@
 
 <script>
 import HeaderComponent from "./components/HeaderComponent.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -18,6 +19,11 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {
+    ...mapActions(["fetchActiveMoviesList"])
+  },
+  mounted() {
+    this.fetchActiveMoviesList();
+  }
 };
 </script>

@@ -45,6 +45,9 @@ export default new Vuex.Store({
       return state.showtimesList.filter(() => {
         if (Math.round(rng()) === 1) return true;
       });
+    },
+    getMovieById: state => param => {
+      return state.activeMoviesList.find(e => e.id === param);
     }
   },
   actions: {

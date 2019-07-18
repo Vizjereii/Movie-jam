@@ -2,13 +2,21 @@
   <v-toolbar dark class="toolbar-width ma-0">
     <v-toolbar-side-icon></v-toolbar-side-icon>
     <v-toolbar-items>
-      <v-btn flat class="title-button">Movie Jam</v-btn>
+      <v-btn flat class="title-button" @click="navigateToHome">Movie Jam</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    navigateToHome() {
+      this.$router.push({
+        name: "home"
+      });
+    }
+  }
+};
 </script>
 
 <style scoped>
