@@ -1,25 +1,35 @@
 <template>
-  <v-layout row wrap justify-start class="even-height scrolling-wrapper booking-container">
+  <v-layout
+    v-if="movieFetchFinished"
+    row
+    wrap
+    justify-start
+    class="even-height scrolling-wrapper booking-container"
+  >
     <v-flex xs12 class="headline mb-0 font-weight-medium pa-2">
       <div>Booking tickets for "{{currentMovieData.title}}"</div>
       <div>on {{displayDate}}</div>
       <div>starts at {{timeslot}}</div>
     </v-flex>
-    <svg width="600" height="600">
-      <g v-for="(row, rowIndex) in chairRows" :key="row">
-        <path
-          v-for="(chairInRow, chairIndex) in chairsPerRow"
-          :key="chairInRow"
-          :transform="'translate(' + (1+chairIndex)*50 + ',' + (1+rowIndex)*50 + '.000000) scale(0.0035000,-0.005000)'"
-          fill="white"
-          :d="chairSvg"
-        />
-      </g>
-    </svg>
+    <v-flex>
+      <svg :viewBox="calcViewBox(chairsPerRow, chairRows)" preserveAspectRatio="xMidYMid meet">
+        <g v-for="(row, rowIndex) in chairRows" :key="row">
+          <path
+            v-for="(chairInRow, chairIndex) in chairsPerRow"
+            :key="chairInRow"
+            :transform="calcTranslate(chairIndex, rowIndex)"
+            fill="white"
+            :d="chairSvg.path"
+          />
+        </g>
+      </svg>
+    </v-flex>
   </v-layout>
+  <div v-else>Loading</div>
 </template>
 
 <script>
+import chairSvg from "../assets/chairPath.js";
 import { mapGetters, mapState } from "vuex";
 import { format } from "date-fns";
 
@@ -27,7 +37,8 @@ export default {
   data() {
     return {
       chairRows: 11,
-      chairsPerRow: 8
+      chairsPerRow: 8,
+      chairSvg
     };
   },
   props: {
@@ -41,13 +52,21 @@ export default {
     }
   },
   computed: {
-    ...mapState(["chairSvg"]),
+    ...mapState(["movieFetchFinished"]),
     ...mapGetters(["getMovieById"]),
     currentMovieData() {
       return this.getMovieById(this.movieId);
     },
     displayDate() {
       return format(new Date(), "dddd, MMMM Do");
+    }
+  },
+  methods: {
+    calcViewBox(numInRow, numRows) {
+      return `0 0 ${numInRow * chairSvg.offsetX} ${numRows * chairSvg.offsetY}`;
+    },
+    calcTranslate(x, y) {
+      return `translate(${x * chairSvg.offsetX}, ${y * chairSvg.offsetY})`;
     }
   }
 };
@@ -65,7 +84,8 @@ export default {
 
 svg {
   border: 4px #fff;
-  left: 0;
-  transform: translateX(50%);
+  width: 70%;
+  height: auto;
+  max-height: 600px;
 }
 </style>

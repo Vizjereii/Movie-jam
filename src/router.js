@@ -17,7 +17,7 @@ export default new Router({
       path: "/book",
       name: "book",
       component: Book,
-      props: route => ({ movieId: route.query.id, timeslot: route.query.t })
+      props: route => ({ movieId: +route.query.id, timeslot: route.query.t })
     },
     { path: "*", redirect: "/" }
   ]
