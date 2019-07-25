@@ -11,35 +11,19 @@
       <div>on {{displayDate}}</div>
       <div>starts at {{timeslot}}</div>
     </v-flex>
-    <v-flex>
-      <svg :viewBox="calcViewBox(chairsPerRow, chairRows)" preserveAspectRatio="xMidYMid meet">
-        <g v-for="(row, rowIndex) in chairRows" :key="row">
-          <path
-            v-for="(chairInRow, chairIndex) in chairsPerRow"
-            :key="chairInRow"
-            :transform="calcTranslate(chairIndex, rowIndex)"
-            fill="white"
-            :d="chairSvg.path"
-          />
-        </g>
-      </svg>
-    </v-flex>
+    <auditorium></auditorium>
   </v-layout>
   <div v-else>Loading</div>
 </template>
 
 <script>
-import chairSvg from "../assets/chairPath.js";
+import Auditorium from "../components/Auditorium.vue";
 import { mapGetters, mapState } from "vuex";
 import { format } from "date-fns";
 
 export default {
   data() {
-    return {
-      chairRows: 11,
-      chairsPerRow: 8,
-      chairSvg
-    };
+    return {};
   },
   props: {
     movieId: {
@@ -61,13 +45,8 @@ export default {
       return format(new Date(), "dddd, MMMM Do");
     }
   },
-  methods: {
-    calcViewBox(numInRow, numRows) {
-      return `0 0 ${numInRow * chairSvg.offsetX} ${numRows * chairSvg.offsetY}`;
-    },
-    calcTranslate(x, y) {
-      return `translate(${x * chairSvg.offsetX}, ${y * chairSvg.offsetY})`;
-    }
+  components: {
+    Auditorium
   }
 };
 </script>
@@ -80,12 +59,5 @@ export default {
   width: 100%;
   color: #fff;
   font-family: "Roboto", sans-serif;
-}
-
-svg {
-  border: 4px #fff;
-  width: 70%;
-  height: auto;
-  max-height: 600px;
 }
 </style>
