@@ -119,10 +119,14 @@ export default {
 .seat:hover {
   transform: translateY(-12px);
   background: linear-gradient(0deg, #ffce26, #ffce26, #ffce26, #ff0);
+  box-shadow: 0 0 8px 5px #ffce26;
+  border-color: #ffce26;
   border-radius: 6px;
 }
 
 .seat-active {
   background: linear-gradient(0deg, #ffce26, #ffce26, #ffce26, #ff0);
+  box-shadow: 0 0 8px 5px #ffce26;
+  border-color: #ffce26;
 }
 </style>
