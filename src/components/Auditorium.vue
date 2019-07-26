@@ -1,18 +1,18 @@
 <template>
   <div class="auditorium">
-    <div class="screen">Screen</div>
+    <div class="screen"></div>
     <v-layout align-center justify-center row wrap pa-2 mb-2>
-      <v-flex xs4 class="seat-container">
+      <v-flex xs3 class="seat-container">
         <div v-for="(cX, iX) in seats.sideBlock.seatX" :key="cX">
           <span v-for="(cY, iY) in seats.sideBlock.seatY" :key="cY" class="seat">{{iY}}, {{iX}}</span>
         </div>
       </v-flex>
-      <v-flex xs4 class="seat-container">
+      <v-flex xs6 class="seat-container">
         <div v-for="(cX, iX) in seats.centralBlock.seatX" :key="cX">
           <span v-for="(cY, iY) in seats.centralBlock.seatY" :key="cY" class="seat">{{iY}}, {{iX}}</span>
         </div>
       </v-flex>
-      <v-flex xs4 class="seat-container">
+      <v-flex xs3 class="seat-container">
         <div v-for="(cX, iX) in seats.sideBlock.seatX" :key="cX">
           <span v-for="(cY, iY) in seats.sideBlock.seatY" :key="cY" class="seat">{{iY}}, {{iX}}</span>
         </div>
@@ -42,7 +42,12 @@ export default {
 }
 
 .screen {
-  height: 60px;
+  height: 11vh;
+  width: 32vw;
+  margin: auto;
+  border-radius: 18px;
+  background-color: rgba(147, 180, 207, 0.589);
+  filter: blur(4px);
 }
 
 .seat-container {
@@ -52,17 +57,17 @@ export default {
 }
 
 .seat {
-  width: 28px;
-  height: 38px;
+  width: 1.95vw;
+  height: 4.65vh;
   display: flex;
-  border-radius: 7px;
+  border-radius: 10px;
   background: linear-gradient(
     0deg,
-    #c5c5c5,
-    #c5c5c5,
-    #c5c5c5,
-    #c5c5c5,
-    #c5c5c5,
+    #727785,
+    #a5aeb6,
+    #a3abaf,
+    #a6b0b8,
+    #bbbbbb,
     #eee,
     #fff
   );
