@@ -29,21 +29,26 @@
       </v-btn>
     </v-flex>
     <v-flex xs6 class="component-wrap">
-      <auditorium></auditorium>
+      <auditorium @seatSelected="selectionMade"></auditorium>
     </v-flex>
-    <v-flex xs3 class="component-wrap">tickets selected</v-flex>
+    <v-flex xs3 class="component-wrap">
+      <tickets-component v-if="selectedSeats.length" :seatsSelected="selectedSeats"></tickets-component>
+    </v-flex>
   </v-layout>
-  <div v-else>Loading</div>
+  <div v-else>TODO: Loading Component goes here</div>
 </template>
 
 <script>
 import Auditorium from "../components/Auditorium.vue";
+import TicketsComponent from "../components/TicketSelectorComponent.vue";
 import { mapGetters, mapState } from "vuex";
 import { format } from "date-fns";
 
 export default {
   data() {
-    return {};
+    return {
+      selectedSeats: []
+    };
   },
   props: {
     movieId: {
@@ -70,8 +75,14 @@ export default {
       );
     }
   },
+  methods: {
+    selectionMade(event) {
+      this.selectedSeats = event;
+    }
+  },
   components: {
-    Auditorium
+    Auditorium,
+    TicketsComponent
   }
 };
 </script>
