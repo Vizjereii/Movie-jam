@@ -38,6 +38,17 @@
           <!-- row {{iY+1}}, seat {{iX+1+seats.sideBlock.seatX+seats.centralBlock.seatX}} -->
         </div>
       </v-flex>
+      <v-layout align-center justify-center row mt-5>
+        <v-flex xs4>
+          <span class="seat-info"></span>Available Seat
+        </v-flex>
+        <v-flex xs4>
+          <span class="seat-info seat-active"></span>Selected Seat
+        </v-flex>
+        <v-flex xs4>
+          <span class="seat-info seat-unavailable"></span>Seat Unavailable
+        </v-flex>
+      </v-layout>
     </v-layout>
   </div>
 </template>
@@ -87,6 +98,7 @@ export default {
   margin: auto;
   border-radius: 18px;
   background-color: rgba(147, 180, 207, 0.589);
+  box-shadow: 0 0 18px 15px rgba(147, 180, 207, 0.589);
   filter: blur(4px);
 }
 
@@ -124,9 +136,32 @@ export default {
   border-radius: 6px;
 }
 
+.seat-info {
+  width: 1.95vw;
+  height: 4.65vh;
+  display: flex;
+  border-radius: 10px;
+  background: linear-gradient(
+    0deg,
+    #727785,
+    #a5aeb6,
+    #a3abaf,
+    #a6b0b8,
+    #bbbbbb,
+    rgb(236, 236, 236),
+    rgb(237, 241, 247)
+  );
+  position: relative;
+  margin: auto;
+}
+
 .seat-active {
   background: linear-gradient(0deg, #ffce26, #ffce26, #ffce26, #ff0);
   box-shadow: 0 0 8px 5px #ffce26;
-  border-color: #ffce26;
+}
+
+.seat-unavailable {
+  opacity: 0.45;
+  box-shadow: 0 0 8px 5px #784cac;
 }
 </style>
