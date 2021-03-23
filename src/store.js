@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import seedRandom from "seedrandom";
+import {netlifyAllMoviesFetchUrl} from "@/apiConstants";
 
 Vue.use(Vuex);
 
@@ -69,11 +70,18 @@ export default new Vuex.Store({
             commit("fetchMovieListStart");
             
             axios
-                .get(".netlify/functions/movieFetch")
+                .get(netlifyAllMoviesFetchUrl)
                 .then(response => {
                     commit("fetchMovieListSuccess", response.data);
                 })
                 .catch(err => commit("fetchMovieListError", err));
+            
+            axios.get(".netlify/functions/movieDetailsFetch", {
+                params: {
+                    movieId: 681887
+                }
+            })
+                .then(response => console.log(response))
         }
     }
 });

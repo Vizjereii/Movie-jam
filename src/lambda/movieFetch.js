@@ -1,9 +1,5 @@
-require("dotenv").config();
-
 const axios = require("axios");
-
-const movieDbApiRootUrl = "https://api.themoviedb.org/3";
-const movieDbApiKey = process.env.movieDbApiKey;
+const apiConstants = require("../apiConstants");
 
 function getAllPagesRecursive(url, movies) {
     url = url.replace("&page=d+", "");
@@ -39,10 +35,10 @@ exports.handler = async (event, context, callback) => {
         currentDate.setDate(currentDate.getDate() - 14);
         const twoWeeksAgo = currentDate.toISOString().substr(0, 10);
         currentDate.setDate(currentDate.getDate() + 35);
-        const threeWeeksFuture = currentDate.toISOString().substr(0, 10);
-
+        const threeWeeksFuture = currentDate.toISOString().substr(0, 10);        
+        
         await getAllPagesRecursive(
-            `${movieDbApiRootUrl}/discover/movie?api_key=${movieDbApiKey}&language=en-US` +
+            `${apiConstants.movieDbApiRootUrl}/discover/movie?api_key=${apiConstants.movieDbApiKey}&language=en-US` +
             `&sort_by=primary_release_date.desc&include_adult=false` +
             `&primary_release_date.gte=${twoWeeksAgo}&primary_release_date.lte=${threeWeeksFuture}&vote_count.gte=10`,
             [])
