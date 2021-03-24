@@ -16,6 +16,7 @@
 
 <script>
 import ShowtimeDetails from "../components/ShowtimeDetailsComponent.vue";
+import {movieDbApiImageBaseUrl} from "@/apiConstants";
 
 export default {
   data() {
@@ -31,7 +32,7 @@ export default {
   },
   computed: {
     imgPath() {
-      return "https://image.tmdb.org/t/p/w780" + this.cardData.poster_path;
+      return movieDbApiImageBaseUrl + this.cardData.poster_path;
     }
   },
   components: {

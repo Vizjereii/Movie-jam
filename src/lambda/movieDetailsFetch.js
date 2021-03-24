@@ -1,7 +1,7 @@
 ﻿const axios = require("axios");
 const apiConstants = require("../apiConstants");
 
-exports.handler = async (event, context, callback) => {
+exports.handler = (event, context, callback) => {
     const {httpMethod, queryStringParameters} = event;
     
     if (httpMethod !== "GET") {
@@ -10,7 +10,7 @@ exports.handler = async (event, context, callback) => {
             body: "Method Not Allowed"
         });
     } else {
-        axios.get(`https://api.themoviedb.org/3/movie/${queryStringParameters.movieId}`, {
+        axios.get(`${apiConstants.movieDbApiRootUrl}/movie/${queryStringParameters.movieId}`, {
             params: {
                 api_key: apiConstants.movieDbApiKey,
                 language: 'en-US',

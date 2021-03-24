@@ -1,31 +1,32 @@
 <template>
   <v-layout
-    v-if="movieFetchFinished"
-    row
-    wrap
-    align-start
-    justify-start
-    fill-height
-    class="even-height scrolling-wrapper booking-container"
+      v-if="movieFetchFinished"
+      row
+      wrap
+      align-start
+      justify-start
+      fill-height
+      class="even-height scrolling-wrapper booking-container"
   >
     <v-flex xs12 class="headline mb-0 font-weight-medium pa-2">
       <div>
         Booking tickets for
-        <span class="prop-highlight">"{{currentMovieData.title}}"</span>
+        <span class="prop-highlight">"{{ currentMovieData.title }}"</span>
       </div>
       <div>
         on
-        <span class="prop-highlight">{{displayDate}}</span>
+        <span class="prop-highlight">{{ displayDate }}</span>
       </div>
       <div>
         starts at
-        <span class="prop-highlight">{{timeslot}}</span>
+        <span class="prop-highlight">{{ timeslot }}</span>
       </div>
     </v-flex>
     <v-flex xs3 class="component-wrap">
       <v-img :src="imgPath" contain></v-img>
       <v-btn>
-        <v-icon medium>info</v-icon>Movie Details
+        <v-icon medium>info</v-icon>
+        Movie Details
       </v-btn>
     </v-flex>
     <v-flex xs6 class="component-wrap">
@@ -41,8 +42,9 @@
 <script>
 import Auditorium from "../components/Auditorium.vue";
 import TicketsComponent from "../components/TicketSelectorComponent.vue";
-import { mapGetters, mapState } from "vuex";
-import { format } from "date-fns";
+import {mapGetters, mapState} from "vuex";
+import {format} from "date-fns";
+import {movieDbApiImageBaseUrl} from "@/apiConstants";
 
 export default {
   data() {
@@ -71,7 +73,7 @@ export default {
     },
     imgPath() {
       return (
-        "https://image.tmdb.org/t/p/w780" + this.currentMovieData.poster_path
+          movieDbApiImageBaseUrl + this.currentMovieData.poster_path
       );
     }
   },
