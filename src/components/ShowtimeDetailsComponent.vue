@@ -1,32 +1,39 @@
 <template>
   <div class="details-container">
-    <v-btn class="my-4" round>
-      <v-icon medium>info</v-icon>Movie Details
-    </v-btn>
+    <router-link
+        :to="{ path: 'details', query: { movieId: movieId }}"
+        tag="v-btn"
+        class="my-4, v-btn--round"
+    >
+      <v-icon medium>info</v-icon>
+      Movie Details
+    </router-link>
     <h4 class="headline pa-3 text-pop">Showtimes</h4>
     <v-layout align-center justify-center row wrap pa-5 mb-2>
       <v-flex v-for="time in getShowtimes" :key="time" xs3>
         <v-card-text
-          class="px-0 py-2 headline font-weight-medium time-slot"
-          :class="{'time-slot-active': isTimeslotValid(time)}"
-          @click="navigateToBooking(time)"
-        >{{time}}</v-card-text>
+            class="px-0 py-2 headline font-weight-medium time-slot"
+            :class="{'time-slot-active': isTimeslotValid(time)}"
+            @click="navigateToBooking(time)"
+        >{{ time }}
+        </v-card-text>
       </v-flex>
     </v-layout>
     <v-card-title primary-title>
-      <h3 class="headline mb-0 text-pop title-name font-weight-medium">{{showtimesTitle}}</h3>
+      <h3 class="headline mb-0 text-pop title-name font-weight-medium">{{ movieTitle }}</h3>
     </v-card-title>
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
-    showtimesTitle: {
+    movieTitle: {
       type: String,
       required: true
     },
-    showtimesId: {
+    movieId: {
       type: Number,
       required: true
     }
@@ -38,9 +45,7 @@ export default {
   },
   computed: {
     getShowtimes() {
-      return this.$store.getters.getShowtimes(
-        this.showtimesId + this.selectedDate
-      );
+      return this.$store.getters.getShowtimes(this.movieId, this.selectedDate);
     }
   },
   methods: {
@@ -52,10 +57,18 @@ export default {
       return slotTime > currentTime;
     },
     navigateToBooking(timeslotParam) {
+      if (this.isTimeslotValid(timeslotParam)) {
+        this.$router.push({
+          name: "book",
+          query: {id: this.movieId, t: timeslotParam}
+        });
+      }
+    },
+    navigateToDetails() {
       this.$router.push({
-        name: "book",
-        query: { id: this.showtimesId, t: timeslotParam }
-      });
+        name: "details",
+        query: {movieId: this.movieId}
+      })
     }
   }
 };
@@ -80,6 +93,7 @@ export default {
   filter: drop-shadow(3px 4px 3px #000);
   transition-duration: 300ms;
 }
+
 .time-slot-active:hover {
   cursor: pointer;
   color: #fff;

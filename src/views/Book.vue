@@ -8,28 +8,33 @@
       fill-height
       class="even-height scrolling-wrapper booking-container"
   >
-    <v-flex xs12 class="headline mb-0 font-weight-medium pa-2">
-      <div>
-        Booking tickets for
-        <span class="prop-highlight">"{{ currentMovieData.title }}"</span>
-      </div>
-      <div>
-        on
-        <span class="prop-highlight">{{ displayDate }}</span>
-      </div>
-      <div>
-        starts at
-        <span class="prop-highlight">{{ timeslot }}</span>
-      </div>
-    </v-flex>
+    
     <v-flex xs3 class="component-wrap">
-      <v-img :src="imgPath" contain></v-img>
-      <v-btn>
+      <router-link
+          :to="{ path: 'details', query: { movieId: movieId }}"
+          tag="v-btn"
+          class="my-4, v-btn--round"
+      >
         <v-icon medium>info</v-icon>
         Movie Details
-      </v-btn>
+      </router-link>
+      <v-img :src="imgPath" contain></v-img>      
     </v-flex>
     <v-flex xs6 class="component-wrap">
+      <v-flex xs12 class="headline mb-0 font-weight-medium pa-2">
+        <div>
+          Booking tickets for
+          <span class="prop-highlight">"{{ currentMovieData.title }}"</span>
+        </div>
+        <div>
+          on
+          <span class="prop-highlight">{{ displayDate }}</span>
+        </div>
+        <div>
+          starts at
+          <span class="prop-highlight">{{ timeslot }}</span>
+        </div>
+      </v-flex>
       <auditorium @seatSelected="selectionMade"></auditorium>
     </v-flex>
     <v-flex xs3 class="component-wrap">

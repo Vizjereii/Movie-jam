@@ -95,7 +95,7 @@ export default {
 .screen {
   height: 11vh;
   width: 32vw;
-  margin: auto;
+  margin: 1em auto auto;
   border-radius: 18px;
   background-color: rgba(147, 180, 207, 0.589);
   box-shadow: 0 0 18px 15px rgba(147, 180, 207, 0.589);

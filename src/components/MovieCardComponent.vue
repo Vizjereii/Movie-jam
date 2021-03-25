@@ -8,8 +8,8 @@
     <v-img :src="imgPath" :height="'100%'" :width="'100%'" :class="{'hover-blur': showDetails}"></v-img>
     <showtime-details
       v-if="showDetails"
-      :showtimesTitle="cardData.original_title"
-      :showtimesId="cardData.id"
+      :movieTitle="cardData.original_title"
+      :movieId="cardData.id"
     ></showtime-details>
   </v-card>
 </template>

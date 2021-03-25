@@ -55,8 +55,8 @@ export default new Vuex.Store({
         }
     },
     getters: {
-        getShowtimes: state => seed => {
-            const rng = new seedRandom(seed);
+        getShowtimes: state => (movieId, selectedDate) => {
+            const rng = new seedRandom(movieId + selectedDate);
             return state.showtimesList.filter(() => {
                 if (Math.round(rng()) === 1) return true;
             });
@@ -75,10 +75,11 @@ export default new Vuex.Store({
                     commit("fetchMovieListSuccess", response.data);
                 })
                 .catch(err => commit("fetchMovieListError", err));
-            
+        },
+        fetchMovieDetails({commit, state}, payload) {
             axios.get(netlifyMovieDetailsFetchUrl, {
                 params: {
-                    movieId: 681887
+                    movieId: payload
                 }
             })
                 .then(response => console.log(response))
