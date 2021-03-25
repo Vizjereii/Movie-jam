@@ -1,11 +1,14 @@
 ﻿<template>
-  <v-layout>
+  <v-layout
+      v-if="!shouldFetchMovieDetails"
+  >
     
-  </v-layout>  
+  </v-layout>
+  <div v-else>TODO: Loading Component goes here</div>
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   data() {
@@ -17,8 +20,22 @@ export default {
       required: true
     },
   },
+  computed: {
+    ...mapGetters(["getMovieById"]),
+    currentMovieData() {
+      return this.getMovieById(this.movieId);
+    },
+    shouldFetchMovieDetails() {
+      return !this.currentMovieData || !this.currentMovieData.videos
+    }
+  },
   methods: {
     ...mapActions(["fetchMovieDetails"]),
+  },
+  created() {
+    if (this.shouldFetchMovieDetails) {
+      this.fetchMovieDetails(this.movieId);
+    }    
   }
 }
 </script>

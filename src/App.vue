@@ -22,7 +22,7 @@ export default {
   methods: {
     ...mapActions(["fetchActiveMoviesList"])
   },
-  mounted() {
+  created() {
     this.fetchActiveMoviesList();
   }
 };

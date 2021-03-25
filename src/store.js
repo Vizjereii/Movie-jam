@@ -11,6 +11,7 @@ export default new Vuex.Store({
         movieFetchInProgress: false,
         movieFetchFinished: false,
         movieFetchError: false,
+        movieDetailsFetchError: false,
         activeMoviesList: [],
         showtimesList: [
             "10:15",
@@ -49,9 +50,20 @@ export default new Vuex.Store({
             state.movieFetchInProgress = false;
             state.movieFetchFinished = true;
         },
-        fetchMovieListError(state) {
-            console.log("something went wrong while fetching movie list from API");
+        fetchMovieListError(state, payload) {
+            console.log("Exception while fetching movie list from the API");
+            console.log(payload);
             state.movieFetchError = true;
+        },
+        fetchMovieDetailsSuccess(state, payload) {
+            const movieItem = state.activeMoviesList.find(e => e.id === payload.id);
+            const movieItemIndex = state.activeMoviesList.indexOf(movieItem);
+            state.activeMoviesList.splice(movieItemIndex, 1, payload);
+        },
+        fetchMovieDetailsError(state, payload) {
+            console.log("Exception while fetching movie details from the API")
+            console.log(payload);
+            state.movieDetailsFetchError = true;
         }
     },
     getters: {
@@ -68,21 +80,28 @@ export default new Vuex.Store({
     actions: {
         fetchActiveMoviesList({commit}) {
             commit("fetchMovieListStart");
-            
+
             axios
                 .get(netlifyAllMoviesFetchUrl)
                 .then(response => {
                     commit("fetchMovieListSuccess", response.data);
                 })
-                .catch(err => commit("fetchMovieListError", err));
+                .catch(exception => commit("fetchMovieListError", exception));
         },
-        fetchMovieDetails({commit, state}, payload) {
+        fetchMovieDetails({commit, dispatch, state}, payload) {
+            if (!state.activeMoviesList.length && !state.movieFetchInProgress) {
+                dispatch('fetchActiveMoviesList');
+            }
+            
             axios.get(netlifyMovieDetailsFetchUrl, {
                 params: {
                     movieId: payload
                 }
             })
-                .then(response => console.log(response))
+                .then(response => {
+                    commit("fetchMovieDetailsSuccess", response.data);
+                })
+                .catch(exception => commit("fetchMovieDetailsError", exception));
         }
     }
 });
