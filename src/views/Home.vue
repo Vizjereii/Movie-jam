@@ -17,7 +17,7 @@
 
 <script>
 import { mapState } from "vuex";
-import MovieCardComponent from "../components/MovieCardComponent.vue";
+import MovieCardComponent from "@/components/MovieCardComponent.vue";
 
 export default {
   name: "home",

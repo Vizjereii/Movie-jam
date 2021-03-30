@@ -36,14 +36,16 @@
       </v-flex>
     </transition>
   </v-layout>
-  <div v-else>TODO: Loading Component goes here</div>
+  <LoadingComponent v-else></LoadingComponent>
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
 import {movieDbApiImageBaseUrl} from "@/apiConstants";
+import LoadingComponent from "@/components/LoadingComponent";
 
 export default {
+  components: {LoadingComponent},
   data() {
     return {};
   },

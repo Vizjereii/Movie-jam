@@ -41,12 +41,13 @@
       <tickets-component v-if="selectedSeats.length" :seatsSelected="selectedSeats"></tickets-component>
     </v-flex>
   </v-layout>
-  <div v-else>TODO: Loading Component goes here</div>
+  <LoadingComponent v-else></LoadingComponent>
 </template>
 
 <script>
-import Auditorium from "../components/Auditorium.vue";
-import TicketsComponent from "../components/TicketSelectorComponent.vue";
+import Auditorium from "@/components/Auditorium.vue";
+import TicketsComponent from "@/components/TicketSelectorComponent.vue";
+import LoadingComponent from "@/components/LoadingComponent";
 import {mapGetters, mapState} from "vuex";
 import {format} from "date-fns";
 import {movieDbApiImageBaseUrl} from "@/apiConstants";
@@ -88,6 +89,7 @@ export default {
     }
   },
   components: {
+    LoadingComponent,
     Auditorium,
     TicketsComponent
   }
