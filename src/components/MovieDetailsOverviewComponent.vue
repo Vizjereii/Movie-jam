@@ -6,6 +6,12 @@
     <div>Runtime: {{ movieData.runtime }}</div>
     <template v-if="isOnDetailsPage">
       <div>Genres: {{ movieData.genres }}</div>
+      <div>production countries:
+        <div v-for="country in movieData.production_countries"
+             :key="country.id">
+          {{ country.name }}
+        </div>
+      </div>
       <div>production companies:
         <div v-for="company in movieData.production_companies"
              :key="company.id">
@@ -29,8 +35,7 @@ export default {
     }
   },
   computed: {
-    isOnDetailsPage() {
-      console.log(this.movieData);
+    isOnDetailsPage() {      
       return this.$route.name === "details";
     }
   }

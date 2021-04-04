@@ -77,15 +77,13 @@ export default {
       return this.getMovieDetailsById(this.movieId);
     },
     shouldFetchMovieDetails() {
-      return !this.currentMovieData
+      return !this.currentMovieData;
     },
     displayDate() {
       return format(new Date(), "dddd, MMMM Do");
     },
     imgPath() {
-      return (
-          movieDbApiImageBaseUrl + this.currentMovieData.poster_path
-      );
+      return movieDbApiImageBaseUrl + this.currentMovieData.poster_path;
     }
   },
   methods: {

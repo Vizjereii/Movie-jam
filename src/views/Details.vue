@@ -53,12 +53,10 @@ export default {
       return this.getMovieDetailsById(this.movieId);
     },
     shouldFetchMovieDetails() {
-      return !this.currentMovieData
+      return !this.currentMovieData;
     },
     imgPath() {
-      return (
-          movieDbApiImageBaseUrl + this.currentMovieData.poster_path
-      );
+      return movieDbApiImageBaseUrl + this.currentMovieData.poster_path;
     }
   },
   methods: {
