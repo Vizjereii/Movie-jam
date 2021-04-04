@@ -1,6 +1,6 @@
 <template>
   <v-layout
-      v-if="movieFetchFinished"
+      v-if="!shouldFetchMovieDetails"
       row
       wrap
       align-start
@@ -39,6 +39,7 @@
     </v-flex>
     <v-flex xs3 class="component-wrap">
       <tickets-component v-if="selectedSeats.length" :seatsSelected="selectedSeats"></tickets-component>
+      <MovieDetailsOverviewComponent :movie-data="currentMovieData"/>
     </v-flex>
   </v-layout>
   <LoadingComponent v-else></LoadingComponent>
@@ -48,11 +49,13 @@
 import Auditorium from "@/components/Auditorium.vue";
 import TicketsComponent from "@/components/TicketSelectorComponent.vue";
 import LoadingComponent from "@/components/LoadingComponent";
-import {mapGetters, mapState} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import {format} from "date-fns";
 import {movieDbApiImageBaseUrl} from "@/apiConstants";
+import MovieDetailsOverviewComponent from "@/components/MovieDetailsOverviewComponent";
 
 export default {
+  components: {MovieDetailsOverviewComponent, LoadingComponent, Auditorium, TicketsComponent},
   data() {
     return {
       selectedSeats: []
@@ -69,10 +72,12 @@ export default {
     }
   },
   computed: {
-    ...mapState(["movieFetchFinished"]),
-    ...mapGetters(["getMovieById"]),
+    ...mapGetters(["getMovieDetailsById"]),
     currentMovieData() {
-      return this.getMovieById(this.movieId);
+      return this.getMovieDetailsById(this.movieId);
+    },
+    shouldFetchMovieDetails() {
+      return !this.currentMovieData
     },
     displayDate() {
       return format(new Date(), "dddd, MMMM Do");
@@ -84,15 +89,16 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["fetchMovieDetails"]),
     selectionMade(event) {
       this.selectedSeats = event;
     }
   },
-  components: {
-    LoadingComponent,
-    Auditorium,
-    TicketsComponent
-  }
+  created() {
+    if (this.shouldFetchMovieDetails) {
+      this.fetchMovieDetails(this.movieId);
+    }
+  }  
 };
 </script>
 

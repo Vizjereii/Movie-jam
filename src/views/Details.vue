@@ -10,29 +10,19 @@
   >
     <transition appear>
       <v-flex xs3 class="component-wrap">
-        <v-img :src="imgPath" contain></v-img>
+        <v-img :src="imgPath" contain :alt="currentMovieData.title"></v-img>
       </v-flex>
     </transition>
     <transition appear>
       <v-flex xs6 class="component-wrap">
-        <div :key="currentMovieData.title">{{ currentMovieData.title }}</div>
-        <div>{{ currentMovieData.overview }}</div>
-        <div>Genres: {{ currentMovieData.genres }}</div>
-        <div>production companies:
-          <div v-for="company in currentMovieData.production_companies"
-               :key="company.id">
-            {{ company.name }}
-          </div>
-        </div>
-        <div>Release date: {{ currentMovieData.release_date }}</div>
-        <div>Runtime: {{ currentMovieData.runtime }}</div>
-        <div>Videos: {{ currentMovieData.videos }}</div>
-        <div>Images: {{ currentMovieData.images }}</div>
+        <MovieDetailsOverviewComponent :movie-data="currentMovieData"/>
       </v-flex>
     </transition>
     <transition appear>
       <v-flex xs3 class="component-wrap">
-        <div> Cast: {{ currentMovieData.credits.cast }}</div>
+        <h5> Cast: </h5>
+        <MovieDetailsActorComponent v-for="actor in currentMovieData.credits.cast"
+             :key="actor.id">{{ actor }}</MovieDetailsActorComponent>
       </v-flex>
     </transition>
   </v-layout>
@@ -43,9 +33,11 @@
 import {mapActions, mapGetters} from "vuex";
 import {movieDbApiImageBaseUrl} from "@/apiConstants";
 import LoadingComponent from "@/components/LoadingComponent";
+import MovieDetailsOverviewComponent from "@/components/MovieDetailsOverviewComponent";
+import MovieDetailsActorComponent from "@/components/MovieDetailsActorComponent";
 
 export default {
-  components: {LoadingComponent},
+  components: {MovieDetailsActorComponent, MovieDetailsOverviewComponent, LoadingComponent},
   data() {
     return {};
   },
