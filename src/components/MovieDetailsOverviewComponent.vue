@@ -4,21 +4,24 @@
     <v-card-title class="pt-0 mb-0 mt-0 font-italic" v-if="movieData.tagline">"{{ movieData.tagline }}"</v-card-title>
     <v-divider dark></v-divider>
     <v-card-text class="text-xs-justify">{{ movieData.overview }}</v-card-text>
-    <v-flex class="d-flex justify-space-between mx-5">
+    <v-divider dark></v-divider>
+    <v-flex class="d-flex justify-space-between mx-4 mt-3">
       <p class="text-xs-left" v-if="isOnDetailsPage">Release date: {{ movieData.release_date }}</p>
       <p class="text-xs-right">Runtime: {{ getRuntimeFormatted }}</p>      
     </v-flex>
     <template v-if="isOnDetailsPage">
-      <div>Genres: {{ movieData.genres }}</div>
-      <div>Country: {{ getCountryList }}</div>
-      <div>production companies:
-        <div v-for="company in movieData.production_companies"
-             :key="company.id">
-          {{ company.name }}
-        </div>
-      </div>            
+      <v-flex class="d-flex justify-space-between mx-4">
+        <p class="text-xs-left">Country: {{ getCountryList }}</p>
+        <p class="text-xs-right">{{ getGenresList }}</p>        
+      </v-flex>      
+      <p class="text-xs-justify row text-truncate mx-4">{{getCompanyList}}</p>
+      <v-divider dark></v-divider>
       <div>Videos: {{ movieData.videos }}</div>
       <div>Images: {{ movieData.images }}</div>
+<!--      <iframe width="560" height="315"-->
+<!--              src="https://www.youtube.com/embed/NmQiJPLYzPI?&autoplay=0"    -->
+<!--              class="video-container"              -->
+<!--              allowfullscreen></iframe>-->
     </template>
   </div>
 </template>
@@ -40,15 +43,31 @@ export default {
       const totalMinutes = this.movieData.runtime;
       const hours = Math.floor(totalMinutes / 60);
       const minutes = totalMinutes - hours * 60;
-      return `${hours}h ${minutes}m`
+      return `${hours}h ${minutes}m`;
     },
     getCountryList() {
-      const countryList = this.movieData.production_countries;
-      console.log(countryList)
-      return countryList.reduce((acc, cur) => {
-        return acc + ', ' + cur.iso_3166_1;
-      }, countryList[0].iso_3166_1);
+      return this.shapeListDataToString(this.movieData.production_countries, 'iso_3166_1');
+    },
+    getGenresList() {
+      return this.shapeListDataToString(this.movieData.genres, 'name');
+    },
+    getCompanyList() {
+      return this.shapeListDataToString(this.movieData.production_companies, 'name');      
+    }
+  },
+  methods: {
+    shapeListDataToString(dataArray, propertyName) {      
+      return dataArray.reduce((acc, cur) => {
+        if (!acc) return cur[propertyName];
+        return acc + ', ' + cur[propertyName];
+      }, "");
     }
   }
 }
 </script>
+
+<style scoped>
+.video-container {
+  border-width: 0;
+}
+</style>

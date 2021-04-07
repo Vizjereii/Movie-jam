@@ -2,7 +2,6 @@
   <v-layout
       v-if="!shouldFetchMovieDetails"
       row
-      wrap
       align-start
       justify-start
       fill-height
@@ -12,12 +11,12 @@
       <v-flex xs3 class="component-wrap">
         <v-img :src="imgPath" contain :alt="currentMovieData.title"></v-img>
       </v-flex>
-    </transition>
+    </transition>    
     <transition appear>
-      <v-flex xs6 class="component-wrap">
+      <v-flex xs6 class="component-wrap px-1">
         <MovieDetailsOverviewComponent :movie-data="currentMovieData"/>
       </v-flex>
-    </transition>
+    </transition>    
     <transition appear>
       <v-flex xs3 class="component-wrap">
         <h5> Cast: </h5>

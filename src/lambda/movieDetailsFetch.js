@@ -14,6 +14,7 @@ exports.handler = (event, context, callback) => {
             params: {
                 api_key: apiConstants.movieDbApiKey,
                 language: 'en-US',
+                include_image_language: 'en,null',
                 append_to_response: 'videos,images,credits'
             }
         })
