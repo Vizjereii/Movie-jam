@@ -13,7 +13,7 @@
       </v-flex>
     </transition>    
     <transition appear>
-      <v-flex xs6 class="component-wrap px-1">
+      <v-flex xs6 class="component-wrap">
         <MovieDetailsOverviewComponent :movie-data="currentMovieData"/>
       </v-flex>
     </transition>    
@@ -77,6 +77,11 @@ export default {
   width: 100%;
   color: #fff;
   font-family: "Roboto", sans-serif;
+}
+
+.component-wrap {
+  padding: 1vh 1vh 6vh 1vh;
+  max-height: 85%;
 }
 
 .v-enter {

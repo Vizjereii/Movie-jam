@@ -16,9 +16,8 @@
       </v-flex>      
       <p class="text-xs-justify row text-truncate mx-4">{{getCompanyList}}</p>
       <v-divider dark></v-divider>
-      <div>Videos: {{ movieData.videos }}</div>
-      <div>Images: {{ movieData.images }}</div>
-<!--      <iframe width="560" height="315"-->
+      <MovieDetailsMediaComponent :video-data="movieData.videos" :image-data="movieData.images"></MovieDetailsMediaComponent>      
+<!--      <iframe width="560" height="315" https://img.youtube.com/vi/NmQiJPLYzPI/hqdefault.jpg -->
 <!--              src="https://www.youtube.com/embed/NmQiJPLYzPI?&autoplay=0"    -->
 <!--              class="video-container"              -->
 <!--              allowfullscreen></iframe>-->
@@ -27,8 +26,10 @@
 </template>
 
 <script>
+import MovieDetailsMediaComponent from "@/components/MovieDetailsMediaComponent";
+
 export default {
-  name: 'MovieDetailsOverviewComponent',
+  components: { MovieDetailsMediaComponent },
   props: {
     movieData: {
       type: Object,
@@ -67,7 +68,5 @@ export default {
 </script>
 
 <style scoped>
-.video-container {
-  border-width: 0;
-}
+
 </style>
