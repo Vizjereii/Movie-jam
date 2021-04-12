@@ -1,5 +1,5 @@
 <template>
-  <v-container class="container-width even-height px-0" grid-list-xl text-xs-center>
+  <v-container class="container-width even-height px-0 py-2" grid-list-xl text-xs-center>
     <v-layout row justify-start class="even-height scrolling-wrapper" ref="cont">
       <v-flex
         xs4
@@ -85,7 +85,7 @@ export default {
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
+  height: 0px;
 }
 
 .v-enter {
