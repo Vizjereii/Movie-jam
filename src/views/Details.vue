@@ -11,17 +11,24 @@
       <v-flex xs3 class="component-wrap">
         <v-img :src="imgPath" contain :alt="currentMovieData.title"></v-img>
       </v-flex>
-    </transition>    
+    </transition>
     <transition appear>
       <v-flex xs6 class="component-wrap">
         <MovieDetailsOverviewComponent :movie-data="currentMovieData"/>
       </v-flex>
-    </transition>    
+    </transition>
     <transition appear>
       <v-flex xs3 class="component-wrap">
         <h5> Cast: </h5>
-        <MovieDetailsActorComponent v-for="actor in currentMovieData.credits.cast"
-             :key="actor.id">{{ actor }}</MovieDetailsActorComponent>
+        <template
+          v-for="actor in currentMovieData.credits.cast">
+            <v-divider v-if="actor.order > 0" dark></v-divider>
+            <MovieDetailsActorComponent
+              :key="actor.id"
+              :actor-data="actor">
+            {{ actor }}
+            </MovieDetailsActorComponent>
+        </template>
       </v-flex>
     </transition>
   </v-layout>

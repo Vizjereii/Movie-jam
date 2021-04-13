@@ -52,8 +52,8 @@ export default new Vuex.Store({
             state.movieFetchFinished = true;
         },
         fetchMovieListError(state, payload) {
-            console.log("Exception while fetching movie list from the API");
-            console.log(payload);
+            console.error("Exception while fetching movie list from the API");
+            console.error(payload);
             state.movieFetchInProgress = false;
             state.movieFetchError = true;
         },
@@ -61,8 +61,8 @@ export default new Vuex.Store({
             state.moviesDetailsList.push(payload);
         },
         fetchMovieDetailsError(state, payload) {
-            console.log("Exception while fetching movie details from the API")
-            console.log(payload);
+            console.error("Exception while fetching movie details from the API")
+            console.error(payload);
             state.movieDetailsFetchError = true;
         }
     },
