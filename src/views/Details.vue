@@ -19,14 +19,13 @@
     </transition>
     <transition appear>
       <v-flex xs3 class="component-wrap">
-        <h5> Cast: </h5>
+        <h4> Cast: </h4>
         <template
           v-for="actor in currentMovieData.credits.cast">
             <v-divider v-if="actor.order > 0" dark></v-divider>
             <MovieDetailsActorComponent
               :key="actor.id"
               :actor-data="actor">
-            {{ actor }}
             </MovieDetailsActorComponent>
         </template>
       </v-flex>
@@ -87,8 +86,8 @@ export default {
 }
 
 .component-wrap {
-  padding: 1vh 1vh 6vh 1vh;
-  max-height: 85%;
+  padding: 1vh 2vh 6vh 2vh;
+  max-height: 80%;  
 }
 
 .v-enter {

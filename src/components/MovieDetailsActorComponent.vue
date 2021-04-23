@@ -1,23 +1,29 @@
 ﻿<template>
-  <v-card dark class="my-1">
-    <v-flex class="pa-1 d-flex">
-      <v-img :src="profileImagePath" :width="100" contain></v-img>
-      <v-card-text class="pa-1">
-        <div class="d-flex">
-          <div class="font-weight-bold">{{actorData.name}}</div>
+  <v-card dark class="my-1 pa-2 d-flex">
+    <div class="img-container">
+      <v-img :src="profileImagePath" contain></v-img>
+    </div>
+    <v-card-text class="pb-0 px-2 pt-0 actor-card-inner">
+      <div>
+        <div class="font-weight-bold">{{ actorData.name }}</div>
+        <div>
           <span class="grey--text">Character: </span>
-          <span>{{actorData.character}}</span>
+          <span>{{ actorData.character }}</span>
         </div>
-        <v-divider></v-divider>
-        <v-btn text block>View profile on TMDB</v-btn>
-      </v-card-text>
-    </v-flex>
-<!--    <slot></slot>-->
-  </v-card>  
+      </div>
+      <v-btn
+          class="pb-0 mb-0 actor-card-button"
+          text
+          block
+          :href='profileTMDBLink'
+          target="_blank">View on TMDB
+      </v-btn>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
-import {movieDbApiImageHumanProfileUrl} from "@/apiConstants"
+import {movieDbApiImageHumanProfileUrl, movieDbPersonPageUrl} from "@/apiConstants"
 
 export default {
   props: {
@@ -32,11 +38,29 @@ export default {
         return movieDbApiImageHumanProfileUrl + this.actorData.profile_path;
       }
       return "/img/avatar-anonymous.svg";
+    },
+    profileTMDBLink() {
+      return movieDbPersonPageUrl + this.actorData.id;
     }
   }
 }
 </script>
 
 <style scoped>
+.actor-card-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+}
 
+.actor-card-button {
+  max-height: 2em;
+  min-height: 2em;
+}
+
+.img-container {
+  min-width: 60px;
+  align-self: center;
+}
 </style>
