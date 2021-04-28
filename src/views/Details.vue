@@ -38,8 +38,8 @@
 import {mapActions, mapGetters} from "vuex";
 import {movieDbApiImageBaseUrl} from "@/apiConstants";
 import LoadingComponent from "@/components/LoadingComponent";
-import MovieDetailsOverviewComponent from "@/components/MovieDetailsOverviewComponent";
-import MovieDetailsActorComponent from "@/components/MovieDetailsActorComponent";
+import MovieDetailsOverviewComponent from "@/components/MovieDetailsPage/MovieDetailsOverviewComponent";
+import MovieDetailsActorComponent from "@/components/MovieDetailsPage/MovieDetailsActorComponent";
 
 export default {
   components: {MovieDetailsActorComponent, MovieDetailsOverviewComponent, LoadingComponent},

@@ -46,13 +46,13 @@
 </template>
 
 <script>
-import Auditorium from "@/components/Auditorium.vue";
-import TicketsComponent from "@/components/TicketSelectorComponent.vue";
+import Auditorium from "@/components/BookingPage/Auditorium.vue";
+import TicketsComponent from "@/components/BookingPage/TicketSelectorComponent.vue";
 import LoadingComponent from "@/components/LoadingComponent";
 import {mapActions, mapGetters} from "vuex";
 import {format} from "date-fns";
 import {movieDbApiImageBaseUrl} from "@/apiConstants";
-import MovieDetailsOverviewComponent from "@/components/MovieDetailsOverviewComponent";
+import MovieDetailsOverviewComponent from "@/components/MovieDetailsPage/MovieDetailsOverviewComponent";
 
 export default {
   components: {MovieDetailsOverviewComponent, LoadingComponent, Auditorium, TicketsComponent},

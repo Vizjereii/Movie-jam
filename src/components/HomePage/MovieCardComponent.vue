@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ShowtimeDetails from "../components/ShowtimeDetailsComponent.vue";
+import ShowtimeDetails from "@/components/HomePage/ShowtimeDetailsComponent.vue";
 import {movieDbApiImageBaseUrl} from "@/apiConstants";
 
 export default {

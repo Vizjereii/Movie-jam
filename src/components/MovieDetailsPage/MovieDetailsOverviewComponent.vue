@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import MovieDetailsMediaComponent from "@/components/MovieDetailsMediaComponent";
+import MovieDetailsMediaComponent from "@/components/MovieDetailsPage/MovieDetailsMediaComponent";
 
 export default {
   components: { MovieDetailsMediaComponent },
