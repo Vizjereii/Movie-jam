@@ -1,7 +1,8 @@
 ﻿<template>
   <v-footer dark :height="64">
     <v-card-text :align="`right`">
-      Powered by The Movie DataBase Api
+      <span>Powered by </span>
+      <a href='https://www.themoviedb.org' target="_blank">The Movie DataBase</a>
     </v-card-text>
   </v-footer>
 </template>
