@@ -5,7 +5,7 @@
       <v-tab>Images</v-tab>
     </v-tabs>
     <v-tabs-items v-model="activeTab">
-      <v-tab-item class="pa-2">
+      <v-tab-item class="pa-2">        
         <v-carousel
             :cycle="false"
             :hide-delimiters="shouldHideVideoCarouselControls"
@@ -14,7 +14,9 @@
               v-for="(video,index) in getYouTubeVideoList"
               :key="index"
               :src="video.thumbnail"
-          ></v-carousel-item>
+          >
+            <img src="/img/youtubeButton.svg" @click.stop="sendDataToMediaDialog(video)" class="dialog-open-button" alt=""/>
+          </v-carousel-item>          
         </v-carousel>
       </v-tab-item>
       <v-tab-item class="pa-2">
@@ -38,13 +40,18 @@
         </v-carousel>
       </v-tab-item>
     </v-tabs-items>
+    <v-dialog v-model="showMediaDialog">
+      <MovieDetailsMediaDialogComponent :dialog-data="mediaDialogPayload"></MovieDetailsMediaDialogComponent>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import {getYouTubeEmbedUrl, getYouTubeThumbnailUrl, movieDbApiImageBaseUrl, movieDbApiImageHqUrl} from "@/apiConstants"
+import MovieDetailsMediaDialogComponent from "@/components/MovieDetailsPage/MovieDetailsMediaDialogComponent";
 
 export default {
+  components: {MovieDetailsMediaDialogComponent},
   props: {
     videoData: {
       type: Object,
@@ -58,7 +65,9 @@ export default {
   data() {
     return {
       activeTab: null,
-      activeImagePreviewIndex: null
+      activeImagePreviewIndex: null,
+      showMediaDialog: false,
+      mediaDialogPayload: null
     };
   },
   computed: {
@@ -91,11 +100,25 @@ export default {
       const maxValue = this.getImageLinksList.length - 1;
       const increment = 100 / maxValue;
       return currentIndex * increment;
+    },
+    sendDataToMediaDialog(mediaObject) {
+      this.showMediaDialog = true;
+      this.mediaDialogPayload = mediaObject;
     }
   }
 }
 </script>
 
 <style scoped>
+>>>.v-responsive__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.dialog-open-button {
+  position: absolute;
+  height: 10vh;
+  z-index: 10;
+}
 </style>
