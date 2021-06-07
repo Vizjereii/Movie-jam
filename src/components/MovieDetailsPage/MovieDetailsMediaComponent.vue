@@ -13,7 +13,7 @@
           <v-carousel-item
               v-for="(video,index) in getYouTubeVideoList"
               :key="index"
-              :src="video.thumbnail"
+              :src="video.videoThumbnail"
           >
             <img src="/img/youtubeButton.svg" @click.stop="sendDataToMediaDialog(video)" class="dialog-open-button" alt=""/>
           </v-carousel-item>          
@@ -33,14 +33,16 @@
           <v-carousel-item
               v-for="(image, index) in getImageLinksList"
               :key="index"
-              :src="image.preview"
+              :src="image.ImagePreview"
               :transition="false"
               :reverse-transition="false"
-          ></v-carousel-item>
+          >
+            <img src="/img/zoomInIcon.svg" @click.stop="sendDataToMediaDialog(image)" class="dialog-open-button" alt=""/>
+          </v-carousel-item>
         </v-carousel>
       </v-tab-item>
     </v-tabs-items>
-    <v-dialog v-model="showMediaDialog">
+    <v-dialog v-model="showMediaDialog" v-if="showMediaDialog">
       <MovieDetailsMediaDialogComponent :dialog-data="mediaDialogPayload"></MovieDetailsMediaDialogComponent>
     </v-dialog>
   </div>
@@ -75,9 +77,10 @@ export default {
       return this.videoData.results.map(cur => {
         if (cur.site === "YouTube") {
           return {
-            link: getYouTubeEmbedUrl(cur.key),
-            thumbnail: getYouTubeThumbnailUrl(cur.key),
-            name: cur.name
+            isVideo: true,
+            videoLink: getYouTubeEmbedUrl(cur.key),
+            videoThumbnail: getYouTubeThumbnailUrl(cur.key),
+            videoName: cur.name
           }
         }
       });
@@ -89,8 +92,9 @@ export default {
       const fullImageList = this.imageData.backdrops.concat(this.imageData.posters);
       return fullImageList.map(cur => {
         return {
-          preview: movieDbApiImageBaseUrl + cur.file_path,
-          highQuality: movieDbApiImageHqUrl + cur.file_path
+          isVideo: false,
+          ImagePreview: movieDbApiImageBaseUrl + cur.file_path,
+          ImageHighQuality: movieDbApiImageHqUrl + cur.file_path
         }
       });
     }
@@ -102,8 +106,8 @@ export default {
       return currentIndex * increment;
     },
     sendDataToMediaDialog(mediaObject) {
-      this.showMediaDialog = true;
       this.mediaDialogPayload = mediaObject;
+      this.showMediaDialog = true;
     }
   }
 }

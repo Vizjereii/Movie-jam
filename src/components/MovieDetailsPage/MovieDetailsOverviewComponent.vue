@@ -16,11 +16,7 @@
       </v-flex>      
       <p class="text-xs-justify row text-truncate mx-4">{{getCompanyList}}</p>
       <v-divider dark></v-divider>
-      <MovieDetailsMediaComponent :video-data="movieData.videos" :image-data="movieData.images"></MovieDetailsMediaComponent>      
-<!--      <iframe width="560" height="315" https://img.youtube.com/vi/NmQiJPLYzPI/hqdefault.jpg -->
-<!--              src="https://www.youtube.com/embed/NmQiJPLYzPI?&autoplay=0"    -->
-<!--              class="video-container"              -->
-<!--              allowfullscreen></iframe>-->
+      <MovieDetailsMediaComponent :video-data="movieData.videos" :image-data="movieData.images"></MovieDetailsMediaComponent>
     </template>
   </div>
 </template>
