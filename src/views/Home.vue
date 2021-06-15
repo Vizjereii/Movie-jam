@@ -85,7 +85,7 @@ export default {
 }
 
 ::-webkit-scrollbar {
-  height: 0px;
+  height: 0;
 }
 
 .v-enter {

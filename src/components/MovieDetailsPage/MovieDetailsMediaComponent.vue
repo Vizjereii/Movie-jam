@@ -8,6 +8,7 @@
       <v-tab-item class="pa-2">        
         <v-carousel
             :cycle="false"
+            height="420"
             :hide-delimiters="shouldHideVideoCarouselControls"
             :hide-controls="shouldHideVideoCarouselControls">
           <v-carousel-item
@@ -27,6 +28,7 @@
         ></v-progress-linear>
         <v-carousel
             :cycle="false"
+            height="420"
             hide-delimiters
             v-model="activeImagePreviewIndex"
         >
@@ -122,7 +124,7 @@ export default {
 
 .dialog-open-button {
   position: absolute;
-  height: 10vh;
+  height: 9vh;
   z-index: 10;
   opacity: 0.8;
 }

@@ -18,7 +18,7 @@
       </v-flex>
     </transition>
     <transition appear>
-      <v-flex xs3 class="component-wrap">
+      <v-flex xs3 class="component-wrap, cast-list">
         <h4> Cast: </h4>
         <template
           v-for="actor in currentMovieData.credits.cast">
@@ -79,6 +79,7 @@ export default {
 .details-container {
   text-align: center;
   background-color: black;
+  overflow-y: hidden;
   height: 100%;
   width: 100%;
   color: #fff;
@@ -86,8 +87,14 @@ export default {
 }
 
 .component-wrap {
-  padding: 1vh 2vh 6vh 2vh;
-  max-height: 80%;  
+  padding: 1vh 1vh 1vh 1vh;
+  height: 100%;
+  max-height: 80vh;
+}
+
+.cast-list {
+  height: 85vh;
+  overflow-y: auto;
 }
 
 .v-enter {
