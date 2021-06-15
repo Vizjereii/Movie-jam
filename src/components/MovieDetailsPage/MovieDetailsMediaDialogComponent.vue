@@ -6,7 +6,7 @@
               :src="getVideoLink"
               allowfullscreen/>
       <div v-else>
-        <img :src="getImageLink">
+        <v-img :src="getImageLink" max-height="80vh" contain alt=""/>
       </div>
       <img src="/img/modalCloseButton.png" @click="$emit('modalClose', true)" class="modal-close-button" alt="">
     </v-card>
@@ -40,11 +40,12 @@ export default {
 
 <style scoped>
 .dialog-card {
-  padding: 3rem;
+  padding: 1rem;
+  overflow-y: hidden;
 }
 
 .video-frame {
-  min-height: 70vh;
+  min-height: 80vh;
   min-width: 80vw;
   display: flex;
   margin: auto;
