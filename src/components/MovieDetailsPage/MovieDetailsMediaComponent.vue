@@ -43,7 +43,7 @@
       </v-tab-item>
     </v-tabs-items>
     <v-dialog v-model="showMediaDialog" v-if="showMediaDialog">
-      <MovieDetailsMediaDialogComponent :dialog-data="mediaDialogPayload"></MovieDetailsMediaDialogComponent>
+      <MovieDetailsMediaDialogComponent :dialog-data="mediaDialogPayload" @modalClose="showMediaDialog=false"></MovieDetailsMediaDialogComponent>
     </v-dialog>
   </div>
 </template>
@@ -124,5 +124,10 @@ export default {
   position: absolute;
   height: 10vh;
   z-index: 10;
+  opacity: 0.8;
+}
+
+.dialog-open-button:hover {
+  opacity: 1;
 }
 </style>
