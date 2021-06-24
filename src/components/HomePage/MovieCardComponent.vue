@@ -1,11 +1,12 @@
 <template>
   <v-card
+    ref="movieCard"
     @mouseover="showDetails = true"
     @mouseleave="showDetails = false"
     :color="'black'"
     class="even-height"
   >
-    <v-img :src="imgPath" :height="'100%'" :width="'100%'" :class="{'hover-blur': showDetails}"></v-img>
+    <v-img :src="imgPath" :height="'100%'" :width="'100%'" data-test-id="movieImage" :class="{'hover-blur': showDetails}"></v-img>
     <showtime-details
       v-if="showDetails"
       :movieTitle="cardData.original_title"
