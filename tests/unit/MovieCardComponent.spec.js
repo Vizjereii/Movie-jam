@@ -8,7 +8,7 @@ import ShowtimeDetailsComponent from "@/components/HomePage/ShowtimeDetailsCompo
 more info can be found in vuetify issue #4068 and comments */
 Vue.use(Vuetify);
 
-describe('MovieCardComponent tests', () => {
+describe('HomePage - MovieCardComponent tests', () => {
   let wrapper;
   
   const findImage = () => wrapper.find('[data-test-id="movieImage"]');

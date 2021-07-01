@@ -10,8 +10,9 @@
     </router-link>
     <h4 class="headline pa-3 text-pop">Showtimes</h4>
     <v-layout align-center justify-center row wrap pa-5 mb-2>
-      <v-flex v-for="time in getShowtimes" :key="time" xs3>
+      <v-flex v-for="(time, index) in getShowtimes" :key="time" xs3>
         <v-card-text
+            :data-test-id="`time-slot-${index}`"
             class="px-0 py-2 headline font-weight-medium time-slot"
             :class="{'time-slot-active': isTimeslotValid(time)}"
             @click="navigateToBooking(time)"
@@ -51,8 +52,8 @@ export default {
   methods: {
     isTimeslotValid(param) {
       const parsedParam = param.split(":");
-      const currentTime = new Date();
-      const slotTime = new Date();
+      const currentTime = new Date(Date.now());
+      const slotTime = new Date(Date.now());
       slotTime.setHours(parsedParam[0], parsedParam[1], 0);
       return slotTime > currentTime;
     },
