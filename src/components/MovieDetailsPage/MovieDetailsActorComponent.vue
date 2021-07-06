@@ -1,7 +1,7 @@
 ﻿<template>
   <v-card dark class="my-1 pa-2 d-flex">
     <div class="img-container">
-      <v-img :src="profileImagePath" contain></v-img>
+      <v-img :src="profileImagePath" contain data-test-id="actorImage"></v-img>
     </div>
     <v-card-text class="pb-0 px-2 pt-0 actor-card-inner">
       <div>
@@ -12,6 +12,7 @@
         </div>
       </div>
       <v-btn
+          data-test-id="actorProfileLinkButton"
           class="pb-0 mb-0 actor-card-button"
           text
           block
